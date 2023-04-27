@@ -2,6 +2,10 @@ let ejs = require('ejs');
 const fs = require('fs').promises;
 
 let configuration;
+/*
+ * configuration.routePath
+ * configuratioon.staticHome
+ */
 
 function configure (config){
    configuration = config;
