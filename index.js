@@ -13,11 +13,12 @@ function configure (config){
 
 async function commit(templatePath, data, routePath){
     try {
-    let outputPath = configuration.staticHome+'/'+routePath;
+    let outputPath = configuration.staticHome+'/'+routePath+'/';
     let template = await fs.readFile(templatePath, 'utf8');
     let html = ejs.render(template, data);
     
-    await fs.writeFile(outputPath, html)
+    await fs.mkdir(outputPath, {recursive:true});
+    await fs.writeFile(outputPath+"/index.html", html)
 
 
     }
