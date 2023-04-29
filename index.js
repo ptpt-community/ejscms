@@ -17,7 +17,7 @@ function configure(config) {
 function nodeLibraryGit() {
     const path = '/media/jisan/C48458B38458A9A6/8th semester/Thesis/cms-dbms-showcase/static-home/home/index.html';
     const message='okay'
-    const folderPath='/media/jisan/C48458B38458A9A6/8th semester/Thesis/cms-dbms-showcase/static-home/home'
+    const folderPath=configuration.staticHome
 
     simpleGit(folderPath).init((err, response) => {
         if (err) {
@@ -26,13 +26,13 @@ function nodeLibraryGit() {
             console.log('Repository initialized at ' + JSON.stringify(response));
             // Create a file to commit
             // Stage the file for commit
-            simpleGit().add(path, (err) => {
+            simpleGit(folderPath).add(folderPath, (err) => {
                 if (err) {
                     console.error(err);
                 } else {
                     console.log('File staged for commit');
                     // Commit the changes
-                    simpleGit().commit('Initial commit', (err) => {
+                    simpleGit(folderPath).commit('Initial commit', (err) => {
                         if (err) {
                             console.error(err);
                         } else {
