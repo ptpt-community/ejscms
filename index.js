@@ -32,7 +32,7 @@ function nodeLibraryGit() {
                 } else {
                     console.log('File staged for commit');
                     // Commit the changes
-                    simpleGit(folderPath).commit('Initial commit', (err) => {
+                    simpleGit(folderPath).commit('Sucessfully committed', (err) => {
                         if (err) {
                             console.error(err);
                         } else {
