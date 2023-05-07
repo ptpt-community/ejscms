@@ -14,7 +14,7 @@ let configuration;
 function configure(config) {
     configuration = config;
 }
-function nodeLibraryGit() {
+function makeGitCommit() {
     const path = '/media/jisan/C48458B38458A9A6/8th semester/Thesis/cms-dbms-showcase/static-home/home/index.html';
     const message='okay'
     const folderPath=configuration.staticHome
@@ -55,7 +55,7 @@ async function commit(templatePath, data, routePath) {
         await fs.mkdir(outputPath, {recursive: true});
         await fs.writeFile(outputPath + "/index.html", html)
 
-        nodeLibraryGit()
+        makeGitCommit()
 
     } catch (e) {
         console.log(e);
