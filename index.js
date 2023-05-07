@@ -37,11 +37,18 @@ function makeGitCommit() {
                             console.error(err);
                         } else {
                             console.log('Changes committed');
+                            let sgit = simpleGit(folderPath);
+                            sgit.raw(['update-server-info'],
+                                (err, result) => {
+                                    if (err) {console.error(err);}
+                                    else {console.log(result);}
+                            });
                         }
                     });
                 }
             });
         }
+
     });
 
 
