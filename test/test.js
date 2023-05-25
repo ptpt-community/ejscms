@@ -10,7 +10,8 @@ console.log({data})
 cms.linkToStatic({
     templatePath:path.resolve(__dirname, 'templates','hello.ejs'),
     templateData: {data},
-    routePath: "home"
+    routePath: "home",
+    isHTML: true
 });
 
 // Open the Git repository

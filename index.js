@@ -98,12 +98,14 @@ async function linkToStatic(props) {
 	let routePath = props.routePath;
 	let renderedData = props.renderedData;
         try {
-            let outputPath = configuration.staticHome + '/' + routePath + '/';
+            let outputPath = configuration.staticHome + '/' + routePath;
             if(!props.renderedData) {
                 let template = await fs.promises.readFile(templatePath, 'utf8');
                 renderedData = ejs.render(template, data);
             }
-            await writeFileWithDirectory(outputPath + "/index.html", renderedData)
+
+            if(props.isHTML) outputPath += "/index.html";
+            await writeFileWithDirectory(outputPath , renderedData)
             makeGitCommit()
 
     } catch (e) {
