@@ -4,9 +4,14 @@ const path = require("path");
 conf = {
     staticHome: path.resolve(__dirname, 'static-temp')
 }
-let data = [1,2,3];
+let data = [1,2,3, 4];
 cms.configure(conf);
-cms.commit(path.resolve(__dirname, 'templates','hello.ejs'), {data}, "home");
+console.log({data})
+cms.linkToStatic({
+    templatePath:path.resolve(__dirname, 'templates','hello.ejs'),
+    templateData: {data},
+    routePath: "home"
+});
 
 // Open the Git repository
 

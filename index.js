@@ -53,6 +53,11 @@ function makeGitCommit() {
 
 
 }
+
+/*
+ *@deprecated
+ */
+
 async function commit(templatePath, data, routePath) {
     try {
         let outputPath = configuration.staticHome + '/' + routePath + '/';
@@ -70,8 +75,27 @@ async function commit(templatePath, data, routePath) {
 
 }
 
+async function linkToStatic(props) {
+	let templatePath = props.templatePath;
+	let data = props.templateData;
+	let routePath = props.routePath;
+	let renderedData = props.renderedData;
+        try {
+            let outputPath = configuration.staticHome + '/' + routePath + '/';
+            if(!props.renderedData) {
+                let template = await fs.readFile(templatePath, 'utf8');
+                renderedData = ejs.render(template, data);
+            }
+            await fs.mkdir(outputPath, {recursive: true});
+            await fs.writeFile(outputPath + "/index.html", renderedData)
+        makeGitCommit()
 
+    } catch (e) {
+        console.log(e);
+    }
+
+}
 module.exports = {
-    configure, commit
+    configure, commit, linkToStatic
 
 }
