@@ -1,6 +1,7 @@
 let ejs = require('ejs');
-const fs = require('fs').promises;
+const fs = require('fs');
 const simpleGit = require('simple-git');
+const path = require('path');
 
 
 let configuration;
@@ -75,6 +76,22 @@ async function commit(templatePath, data, routePath) {
 
 }
 
+async function writeFileWithDirectory(filePath, data, options) {
+  const directory = path.dirname(filePath);
+
+  try {
+    // Create directory if it doesn't exist
+    await fs.promises.mkdir(directory, { recursive: true });
+
+    // Write the file
+    await fs.promises.writeFile(filePath, data, options);
+
+    console.log('File successfully written!');
+  } catch (err) {
+    console.error('Error:', err);
+  }
+}
+
 async function linkToStatic(props) {
 	let templatePath = props.templatePath;
 	let data = props.templateData;
@@ -83,12 +100,11 @@ async function linkToStatic(props) {
         try {
             let outputPath = configuration.staticHome + '/' + routePath + '/';
             if(!props.renderedData) {
-                let template = await fs.readFile(templatePath, 'utf8');
+                let template = await fs.promises.readFile(templatePath, 'utf8');
                 renderedData = ejs.render(template, data);
             }
-            await fs.mkdir(outputPath, {recursive: true});
-            await fs.writeFile(outputPath + "/index.html", renderedData)
-        makeGitCommit()
+            await writeFileWithDirectory(outputPath + "/index.html", renderedData)
+            makeGitCommit()
 
     } catch (e) {
         console.log(e);
